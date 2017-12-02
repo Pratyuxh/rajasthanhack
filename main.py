@@ -6,10 +6,9 @@ import numpy as np
 import cv2
 import time
 import random
-import pyttsx
-import autocomplete
 import winsound
 import os.path
+
 
 #colourLoop constants
 letRowNorm=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -26,7 +25,7 @@ letRowBold=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>ABCDE</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>ABCDE</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
@@ -35,7 +34,7 @@ letRowBold=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>FGHIJ</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>FGHIJ</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -43,7 +42,7 @@ letRowBold=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>KLMNO</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>KLMNO</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -51,7 +50,7 @@ letRowBold=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>PQRST</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>PQRST</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
@@ -59,12 +58,14 @@ letRowBold=["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>UVWXYZ</b></span></p></body></html>"]
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>UVWXYZ</b></span></p></body></html>"]
+
+
 letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>A</b>BCDE</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>A</b>BCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
@@ -72,28 +73,28 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">A<b style=\" font-size:48pt;\>B</b>CDE</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">A<b>B</b>CDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">AB<b style=\" font-size:48pt;\>C</b>DE</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">AB<b>C</b>DE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABC<b style=\" font-size:48pt;\>D</b>E</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABC<b>D</b>E</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCD<b style=\" font-size:48pt;\>E</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCD<b>E</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
@@ -103,7 +104,7 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>F</b>GHIJ</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>F</b>GHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -111,28 +112,28 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">F<b style=\" font-size:48pt;\>G</b>HIJ</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">F<b>G</b>HIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FG<b style=\" font-size:48pt;\>H</b>IJ</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FG<b>H</b>IJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGH<b style=\" font-size:48pt;\>I</b>J</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGH<b>I</b>J</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHI<b style=\" font-size:48pt;\>J</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHI<b>J</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>"],
@@ -142,7 +143,7 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>K</b>LMNO</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>K</b>LMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -150,28 +151,28 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">K<b style=\" font-size:48pt;\>L</b>MNO</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">K<b>L</b>MNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KL<b style=\" font-size:48pt;\>M</b>NO</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KL<b>M</b>NO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLM<b style=\" font-size:48pt;\>N</b>O</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLM<b>N</b>O</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMN<b style=\" font-size:48pt;\>O</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMN<b>O</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>"],
 ["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -181,7 +182,7 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>P</b>QRST</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>P</b>QRST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -189,28 +190,28 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">P<b style=\" font-size:48pt;\>Q</b>RST</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">P<b>Q</b>RST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQ<b style=\" font-size:48pt;\>R</b>ST</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQ<b>R</b>ST</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQR<b style=\" font-size:48pt;\>S</b>T</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQR<b>S</b>T</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRS<b style=\" font-size:48pt;\>T</b></span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRS<b>T</b></span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXYZ</span></p></body></html>"],
 ["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -220,7 +221,7 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b style=\" font-size:48pt;\>U</b>VWXYZ</span></p></body></html>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\"><b>U</b>VWXYZ</span></p></body></html>","<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
@@ -228,35 +229,35 @@ letColBold=[["<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">U<b style=\" font-size:48pt;\>V</b>WXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">U<b>V</b>WXYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UV<b style=\" font-size:48pt;\>W</b>XYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UV<b>W</b>XYZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVW<b style=\" font-size:48pt;\>X</b>YZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVW<b>X</b>YZ</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWX<b style=\" font-size:48pt;\>Y</b>Z</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWX<b>Y</b>Z</span></p></body></html>","<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\" bgcolor=\"#f0f0f0\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">ABCDE</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">FGHIJ</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">KLMNO</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">PQRST</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXY<b style=\" font-size:48pt;\>Z</b></span></p></body></html>"]]
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:24pt;\">UVWXY<b>Z</b></span></p></body></html>"]]
 
 
 try:
@@ -292,14 +293,7 @@ rightEyeClosedStart=False
 rightEyeClosedStartTime=0
 rightFirst=0
 
-engine = pyttsx.init()
-engine.setProperty('rate', 125)
-engine.setProperty('volume', 1)
-voices = engine.getProperty('voices')
-for voice in voices:
-     engine.setProperty('voice',voices[1].id)
-     break
-autocomplete.load()
+
 
 NUM_ROWS_OF_LETTERS=5
 letColCount=-1
@@ -328,7 +322,6 @@ def tick():
     global letters
     global currentSentence
     global wholeText
-    global ui
     global row5
     global row6
     global vidOpen
@@ -370,7 +363,7 @@ def tick():
                             ui.textBrowser_4.setText(currentSentence)
                             letRowCount=-1
                             letColCount=-1
-                            ui.predictNextWord()
+                            
             ##Left Wink
             elif len(leftEye)==1 and len(rightEye)==0:
                 if rightEyeClosedStart==False:
@@ -426,61 +419,64 @@ class Ui_MainWindow(object):
         self.go=True
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        
         self.textBrowser = QtGui.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(20, 20, 300, 250))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
+        
         self.textBrowser_2 = QtGui.QTextBrowser(self.centralwidget)
-        self.textBrowser_2.setGeometry(QtCore.QRect(340, 20, 271, 341))
+        self.textBrowser_2.setGeometry(QtCore.QRect(340, 20, 271, 410))
         self.textBrowser_2.setObjectName(_fromUtf8("textBrowser_2"))
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(20, 280, 71, 28))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.pushButton.clicked.connect(self.pauseBut)
+        #self.pushButton = QtGui.QPushButton(self.centralwidget)
+        #self.pushButton.setGeometry(QtCore.QRect(20, 280, 71, 28))
+        #self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        #self.pushButton.clicked.connect(self.pauseBut)
         self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(100, 280, 51, 28))
+        self.pushButton_2.setGeometry(QtCore.QRect(20, 280, 76, 42))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.pushButton_2.clicked.connect(self.addSpace)
         self.pushButton_3 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(160, 280, 31, 28))
+        self.pushButton_3.setGeometry(QtCore.QRect(240, 280, 76, 42))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
         self.pushButton_3.setFont(font)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.pushButton_3.clicked.connect(self.delLet)
-        self.pushButton_4 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(200, 280, 61, 28))
+        # self.pushButton_4 = QtGui.QPushButton(self.centralwidget)
+        # self.pushButton_4.setGeometry(QtCore.QRect(200, 280, 61, 28))
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
-        self.pushButton_4.setFont(font)
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_4.clicked.connect(self.pushSentenceToBody)
-        self.pushButton_5 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(270, 280, 51, 28))
-        self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.pushButton_5.clicked.connect(self.reciteBut)
-        self.textBrowser_3 = QtGui.QTextBrowser(self.centralwidget)
-        self.textBrowser_3.setGeometry(QtCore.QRect(20, 320, 211, 41))
-        self.textBrowser_3.setObjectName(_fromUtf8("textBrowser_3"))
-        self.pushButton_6 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(240, 320, 81, 41))
+        # self.pushButton_4.setFont(font)
+        # self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+        # self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+        # self.pushButton_4.clicked.connect(self.pushSentenceToBody)
+        # self.pushButton_5 = QtGui.QPushButton(self.centralwidget)
+        # self.pushButton_5.setGeometry(QtCore.QRect(270, 280, 51, 28))
+        # self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
+        # self.pushButton_5.clicked.connect(self.reciteBut)
+        
+        # self.textBrowser_3 = QtGui.QTextBrowser(self.centralwidget)
+        # self.textBrowser_3.setGeometry(QtCore.QRect(20, 320, 211, 41))
+        # self.textBrowser_3.setObjectName(_fromUtf8("textBrowser_3"))
+        # self.pushButton_6 = QtGui.QPushButton(self.centralwidget)
+        # self.pushButton_6.setGeometry(QtCore.QRect(240, 320, 81, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton_6.setFont(font)
-        self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
-        self.pushButton_6.clicked.connect(self.nurseBut)
+        # self.pushButton_6.setFont(font)
+        # self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
+        # self.pushButton_6.clicked.connect(self.nurseBut)
         self.textBrowser_4 = QtGui.QTextBrowser(self.centralwidget)
-        self.textBrowser_4.setGeometry(QtCore.QRect(20, 380, 471, 51))
+        self.textBrowser_4.setGeometry(QtCore.QRect(20, 330, 300, 100))
         self.textBrowser_4.setObjectName(_fromUtf8("textBrowser_4"))
-        self.pushButton_8 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_8.setGeometry(QtCore.QRect(510, 380, 101, 51))
+        # self.pushButton_8 = QtGui.QPushButton(self.centralwidget)
+        # self.pushButton_8.setGeometry(QtCore.QRect(510, 380, 101, 51))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton_8.setFont(font)
-        self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
-        self.pushButton_8.clicked.connect(self.openCam)
+        # self.pushButton_8.setFont(font)
+        # self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
+        # self.pushButton_8.clicked.connect(self.openCam)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 632, 26))
@@ -536,7 +532,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.buts=[[self.pushButton, self.pushButton_2, self.pushButton_3, self.pushButton_4, self.pushButton_5], [self.textBrowser_3, self.pushButton_6]]
+        self.buts=[[self.pushButton_2, self.pushButton_3]]
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -551,19 +547,19 @@ class Ui_MainWindow(object):
         self.textBrowser_2.setText(_translate("MainWindow", "", None))
         self.textBrowser_2.setAlignment(QtCore.Qt.AlignLeft)
         self.textBrowser_2.setFont(QtGui.QFont("MS Shell Dlg 2", 14))
-        self.pushButton.setText(_translate("MainWindow", "Go/Pause", None))
+        #self.pushButton.setText(_translate("MainWindow", "Go/Pause", None))
         self.pushButton_2.setText(_translate("MainWindow", "Space", None))
         self.pushButton_3.setText(_translate("MainWindow", "Del.", None))
-        self.pushButton_4.setText(_translate("MainWindow", "Add Ln.", None))
-        self.pushButton_5.setText(_translate("MainWindow", "Recite", None))
-        self.textBrowser_3.setText(_translate("MainWindow", "...", None))
-        self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.textBrowser_3.setFont(QtGui.QFont("MS Shell Dlg 2", 15))
+        #self.pushButton_4.setText(_translate("MainWindow", "Add Ln.", None))
+        #self.pushButton_5.setText(_translate("MainWindow", "Recite", None))
+        # self.textBrowser_3.setText(_translate("MainWindow", "...", None))
+        # self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
+        # self.textBrowser_3.setFont(QtGui.QFont("MS Shell Dlg 2", 15))
         self.textBrowser_4.setText(_translate("MainWindow", "...", None))
         self.textBrowser_4.setAlignment(QtCore.Qt.AlignCenter)
         self.textBrowser_4.setFont(QtGui.QFont("MS Shell Dlg 2", 18))
-        self.pushButton_6.setText(_translate("MainWindow", "SMS", None))
-        self.pushButton_8.setText(_translate("MainWindow", "Open Cam.", None))
+        #self.pushButton_6.setText(_translate("MainWindow", "SMS", None))
+        #self.pushButton_8.setText(_translate("MainWindow", "Open Cam.", None))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
         self.menuStart_Stop_Sel.setTitle(_translate("MainWindow", "Left Wink", None))
         self.menuFinger.setTitle(_translate("MainWindow", "Finger", None))
@@ -610,8 +606,8 @@ class Ui_MainWindow(object):
                     letColCount=0
                 elif letColCount==len(self.buts[0]) and letRowCount==5:
                     letColCount=0
-                elif letColCount==len(self.buts[1]) and letRowCount==6:
-                    letColCount=0    
+                # elif letColCount==len(self.buts[1]) and letRowCount==6:
+                #     letColCount=0    
                 if letRowCount<5:
                     self.textBrowser.setHtml(_translate("MainWindow",letColBold[letRowCount][letColCount], None))
                 else:
@@ -631,73 +627,73 @@ class Ui_MainWindow(object):
             currentSentence=""
         self.textBrowser_2.setText(wholeText)
         self.textBrowser_4.setText(currentSentence)
-        self.predictNextWord()
+        #self.predictNextWord()
     def delLet(self):
         global currentSentence
         currentSentence=currentSentence[0:-1]
         self.textBrowser_4.setText(currentSentence)
-        self.predictNextWord()
+        #self.predictNextWord()
     def addSpace(self):
         global currentSentence
         currentSentence+=" "
         self.textBrowser_4.setText(currentSentence)
-        self.predictNextWord()
-    def reciteBut(self):
-        self.pushSentenceToBody()
-        global wholeText
-        reciteLine=wholeText.replace("<br>", "")
-        engine.say(reciteLine)
-        engine.runAndWait()
-    def nurseBut(self):
-        global wholeText
-        reciteLine=wholeText.replace("<br>", "")
-        sendSMS.send(reciteLine)
-        print("Nurse")
-    def pauseBut(self):
-        global letRowCount
-        global letColCount
-        self.go=not(self.go)
-        if letRowCount==6:
-            letRowCount=-1
-            letColCount=-1
-    def predictNextWord(self):
-        global currentSentence
-        words=currentSentence.lower().split(" ")
-        if words:
-            if words[0]=="":
-                self.textBrowser_3.setText(_translate("MainWindow", "", None))
-            elif words[-1]=="":
-                predWord=autocomplete.predict('', words[-2])
-                if predWord:
-                    predWord=predWord[0][0]
-                    self.textBrowser_3.setText(_translate("MainWindow", predWord, None))
-                    self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
-                else:
-                    self.textBrowser_3.setText(_translate("MainWindow", "", None))
-                    self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
-            else:
-                predWord=autocomplete.predict(words[-1], '')
-                if predWord:
-                    predWord=predWord[0][0]
-                    self.textBrowser_3.setText(_translate("MainWindow", predWord, None))
-                    self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
-                else:
-                    self.textBrowser_3.setText(_translate("MainWindow", "", None))
-                    self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
-    def getPredWord(self):
-        global currentSentence
-        predWord=self.textBrowser_3.toPlainText()
-        predWord=str(predWord)
-        if currentSentence and predWord:
-            words=currentSentence.split(" ")
-            if len(words)==1:
-                words[0]=predWord.title()
-            else:
-                words[-1]=predWord
-            currentSentence=" ".join(words)+" "
-            self.textBrowser_4.setText(currentSentence)
-    def openCam(self):
-        print("hi")
+        #self.predictNextWord()
+    # def reciteBut(self):
+    #     self.pushSentenceToBody()
+    #     global wholeText
+    #     reciteLine=wholeText.replace("<br>", "")
+    #     engine.say(reciteLine)
+    #     engine.runAndWait()
+    # def nurseBut(self):
+    #     global wholeText
+    #     reciteLine=wholeText.replace("<br>", "")
+    #     sendSMS.send(reciteLine)
+    #     print("Nurse")
+    # def pauseBut(self):
+    #     global letRowCount
+    #     global letColCount
+    #     self.go=not(self.go)
+    #     if letRowCount==6:
+    #         letRowCount=-1
+    #         letColCount=-1
+    # def predictNextWord(self):
+    #     global currentSentence
+    #     words=currentSentence.lower().split(" ")
+    #     if words:
+    #         if words[0]=="":
+    #             self.textBrowser_3.setText(_translate("MainWindow", "", None))
+    #         elif words[-1]=="":
+    #             predWord=autocomplete.predict('', words[-2])
+    #             if predWord:
+    #                 predWord=predWord[0][0]
+    #                 self.textBrowser_3.setText(_translate("MainWindow", predWord, None))
+    #                 self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
+    #             else:
+    #                 self.textBrowser_3.setText(_translate("MainWindow", "", None))
+    #                 self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
+    #         else:
+    #             predWord=autocomplete.predict(words[-1], '')
+    #             if predWord:
+    #                 predWord=predWord[0][0]
+    #                 self.textBrowser_3.setText(_translate("MainWindow", predWord, None))
+    #                 self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
+    #             else:
+    #                 self.textBrowser_3.setText(_translate("MainWindow", "", None))
+    #                 self.textBrowser_3.setAlignment(QtCore.Qt.AlignCenter)
+    # def getPredWord(self):
+    #     global currentSentence
+    #     predWord=self.textBrowser_3.toPlainText()
+    #     predWord=str(predWord)
+    #     if currentSentence and predWord:
+    #         words=currentSentence.split(" ")
+    #         if len(words)==1:
+    #             words[0]=predWord.title()
+    #         else:
+    #             words[-1]=predWord
+    #         currentSentence=" ".join(words)+" "
+    #         self.textBrowser_4.setText(currentSentence)
+    # def openCam(self):
+    #     print("hi")
 
 if __name__ == "__main__":
     import sys
@@ -706,8 +702,8 @@ if __name__ == "__main__":
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    row5={0:ui.pauseBut, 1:ui.addSpace, 2:ui.delLet, 3:ui.pushSentenceToBody, 4:ui.reciteBut}
-    row6={0:ui.getPredWord, 1:ui.nurseBut}
+    row5={0:ui.addSpace, 1:ui.delLet, 2:ui.pushSentenceToBody}
+    # row6={0:ui.getPredWord}
     MainWindow.show()
     timer = QTimer()
     timer.timeout.connect(tick)
